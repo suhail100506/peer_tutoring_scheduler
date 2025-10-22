@@ -14,8 +14,6 @@ public class Admin {
     private String password;
     private String email;
     private String role = "ADMIN";
-    
-    // Getters and Setters
     public Long getId() {
         return id;
     }
