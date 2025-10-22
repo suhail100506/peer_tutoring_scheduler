@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${admin.id} != null ? 'Edit Admin' : 'Create Admin'"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <h1 class="h2 fw-bold text-primary mb-1" th:text="${admin.id} != null ? 'Update Administrator' : 'Add New Administrator'"></h1>
+                <p class="text-muted mb-0">Manage administrator credentials and access details from this console.</p>
+            </div>
+            <div class="mt-3 mt-md-0 d-flex gap-2 align-items-center">
+                <button type="button" class="theme-toggle" data-toggle-theme>
+                    <i class="bi bi-sun"></i>
+                    <span>Toggle theme</span>
+                </button>
+                <a th:href="@{/admin/admins}" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-arrow-left"></i>
+                    <span class="ms-2">Back to Admins</span>
+                </a>
+                <span class="badge bg-primary bg-opacity-25 text-primary" th:if="${admin.id != null}">
+                    <i class="bi bi-hash"></i>
+                    <span class="ms-1" th:text="'Admin ID: ' + ${admin.id}">Admin ID: 1</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-4">Account Details</h2>
+                        <form th:action="@{/admin/admins}" th:object="${admin}" method="post">
+
+                            <input type="hidden" th:if="${admin.id != null}" th:field="*{id}">
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label for="username" class="form-label">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                        <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="e.g., admin.lead" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="admin@example.com" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                                        <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="••••••••" th:required="${admin.id == null}">
+                                    </div>
+                                    <div class="form-text" th:if="${admin.id != null}">Leave blank to keep existing password.</div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="role" class="form-label">Role</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-award"></i></span>
+                                        <select class="form-select" id="role" th:field="*{role}">
+                                            <option value="ADMIN">Administrator</option>
+                                            <option value="SUPER_ADMIN">Super Administrator</option>
+                                            <option value="SUPPORT">Support</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="notes" class="form-label">Notes <span class="text-muted">(optional)</span></label>
+                                    <textarea class="form-control" id="notes" rows="3" placeholder="Add responsibilities, escalation paths, or other internal notes."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column flex-md-row gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span class="ms-2" th:text="${admin.id != null ? 'Save Changes' : 'Create Admin'}"></span>
+                                </button>
+                                <a th:href="@{/admin/admins}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="bi bi-x-circle"></i>
+                                    <span class="ms-2">Cancel</span>
+                                </a>
+                                <button type="reset" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    <span class="ms-2">Reset Form</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h3 class="h5 mb-3">Security Checklist</h3>
+                        <ul class="list-unstyled text-muted small mb-4">
+                            <li class="d-flex align-items-center mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>Enforce unique, complex passwords.</li>
+                            <li class="d-flex align-items-center mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>Assign the lowest privilege necessary.</li>
+                            <li class="d-flex align-items-center"><i class="bi bi-check2-circle text-primary me-2"></i>Review admin activity logs monthly.</li>
+                        </ul>
+
+                        <h4 class="h6 text-uppercase text-muted">Quick Resources</h4>
+                        <ul class="list-unstyled text-muted small mb-0">
+                            <li class="mb-2"><i class="bi bi-link-45deg me-2"></i><a href="#" class="text-decoration-none">Access Policy</a></li>
+                            <li><i class="bi bi-link-45deg me-2"></i><a href="#" class="text-decoration-none">Incident Response Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/theme.js"></script>
+</body>
+</html>

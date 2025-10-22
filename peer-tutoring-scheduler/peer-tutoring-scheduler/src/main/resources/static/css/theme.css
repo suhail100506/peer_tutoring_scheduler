@@ -1,0 +1,140 @@
+:root {
+    --theme-bg: #f8f9fa;
+    --theme-surface: #ffffff;
+    --theme-text: #1b1f24;
+    --theme-muted: #6c757d;
+    --theme-border: rgba(0, 0, 0, 0.08);
+    --theme-card-shadow: rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="dark"] {
+    --theme-bg: #05060a;
+    --theme-surface: #0c111c;
+    --theme-text: #f5f7fb;
+    --theme-muted: #c5cad6;
+    --theme-border: rgba(255, 255, 255, 0.08);
+    --theme-card-shadow: rgba(0, 0, 0, 0.6);
+}
+
+body {
+    background-color: var(--theme-bg) !important;
+    color: var(--theme-text);
+}
+
+.card,
+.table,
+.table thead,
+.table tbody,
+.table td,
+.table th,
+.form-control,
+.form-select,
+.input-group-text,
+.btn,
+.alert {
+    background-color: var(--theme-surface) !important;
+    color: var(--theme-text) !important;
+    border-color: var(--theme-border) !important;
+}
+
+.card,
+.alert,
+.btn,
+.input-group-text,
+.form-control,
+.form-select {
+    box-shadow: 0 .35rem 1.25rem var(--theme-card-shadow) !important;
+}
+
+.table thead {
+    background-color: var(--theme-surface) !important;
+}
+
+.table tbody tr {
+    border-color: var(--theme-border) !important;
+}
+
+.text-muted,
+.form-text,
+.table tbody tr td .text-muted {
+    color: var(--theme-muted) !important;
+}
+
+[data-theme="dark"] .badge.bg-light {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .badge.bg-warning {
+    background-color: #f5a524 !important;
+    color: #1e1e1e !important;
+}
+
+[data-theme="dark"] .badge.bg-info {
+    background-color: #38bdf8 !important;
+    color: #0b1220 !important;
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .btn-outline-danger,
+[data-theme="dark"] .btn-outline-secondary,
+[data-theme="dark"] .btn-outline-primary,
+[data-theme="dark"] .btn-outline-success {
+    color: var(--theme-text) !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+[data-theme="dark"] .btn-outline-danger:hover {
+    background-color: rgba(248, 113, 113, 0.16) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: rgba(148, 163, 184, 0.18) !important;
+}
+
+[data-theme="dark"] .btn-outline-success:hover {
+    background-color: rgba(74, 222, 128, 0.18) !important;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: rgba(96, 165, 250, 0.18) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder,
+[data-theme="dark"] .form-select::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--theme-border);
+    border-radius: 999px;
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.theme-toggle i {
+    font-size: 1.15rem;
+}
+
+.theme-toggle:hover {
+    border-color: rgba(13, 110, 253, 0.45);
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background-color: rgba(148, 163, 184, 0.12);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    border-color: rgba(96, 165, 250, 0.6);
+}
