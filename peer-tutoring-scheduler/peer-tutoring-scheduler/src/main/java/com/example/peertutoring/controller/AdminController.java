@@ -5,6 +5,7 @@ import com.example.peertutoring.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -56,16 +57,26 @@ public class AdminController {
         return "admin/list";
     }
     
-    @GetMapping("/admins/new")
+    @GetMapping("/new")
     public String showAdminForm(Model model) {
         model.addAttribute("admin", new Admin());
         return "admin/form";
     }
     
-    @PostMapping("/admins")
-    public String saveAdmin(@ModelAttribute("admin") Admin admin) {
-        adminService.saveAdmin(admin);
-        return "redirect:/admin/admins";
+    @PostMapping("/new")
+    public String saveAdmin(@ModelAttribute("admin") Admin admin, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("admin", admin);
+            return "admin/form";
+        }
+        
+        try {
+            adminService.saveAdmin(admin);
+            return "redirect:/admin/admins?success";
+        } catch (Exception e) {
+            model.addAttribute("error", "An error occurred while saving the admin: " + e.getMessage());
+            return "admin/form";
+        }
     }
     
     @GetMapping("/admins/edit/{id}")

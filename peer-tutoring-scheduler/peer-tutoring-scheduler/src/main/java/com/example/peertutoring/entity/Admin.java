@@ -14,6 +14,9 @@ public class Admin {
     private String password;
     private String email;
     private String role = "ADMIN";
+    
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
     public Long getId() {
         return id;
     }
@@ -52,5 +55,13 @@ public class Admin {
     
     public void setRole(String role) {
         this.role = role;
+    }
+    
+    public String getFullName() {
+        return fullName;
+    }
+    
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
