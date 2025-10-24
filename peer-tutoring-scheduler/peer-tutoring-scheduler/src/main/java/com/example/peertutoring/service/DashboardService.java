@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,8 +68,13 @@ public class DashboardService {
                     java.lang.reflect.Method method = sessionService.getClass().getMethod("getRecentSessions", org.springframework.data.domain.PageRequest.class);
                     PageRequest pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "startTime"));
                     Object result = method.invoke(sessionService, pageable);
-                    if (result instanceof List) {
-                        return (List<Session>) result;
+                    if (result instanceof List<?>) {
+                        List<?> rawList = (List<?>) result;
+                        if (rawList.isEmpty() || rawList.get(0) instanceof Session) {
+                            @SuppressWarnings("unchecked")
+                            List<Session> typedList = (List<Session>) (List<?>) result;
+                            return typedList;
+                        }
                     }
                 } catch (NoSuchMethodException | IllegalAccessException | java.lang.reflect.InvocationTargetException e) {
                     // Method doesn't exist or can't be called, try alternative approach
@@ -93,12 +97,16 @@ public class DashboardService {
                 // Check if there's a method to get all sessions that we can manually sort
                 java.lang.reflect.Method method = sessionService.getClass().getMethod("getAllSessions");
                 Object result = method.invoke(sessionService);
-                if (result instanceof List) {
-                    List<Session> allSessions = (List<Session>) result;
-                    return allSessions.stream()
-                            .sorted((s1, s2) -> s2.getStartTime().compareTo(s1.getStartTime()))
-                            .limit(count)
-                            .collect(java.util.stream.Collectors.toList());
+                if (result instanceof List<?>) {
+                    List<?> rawList = (List<?>) result;
+                    if (rawList.isEmpty() || rawList.get(0) instanceof Session) {
+                        @SuppressWarnings("unchecked")
+                        List<Session> typedList = (List<Session>) (List<?>) result;
+                        return typedList.stream()
+                                .sorted((s1, s2) -> s2.getStartTime().compareTo(s1.getStartTime()))
+                                .limit(count)
+                                .collect(java.util.stream.Collectors.toList());
+                    }
                 }
             }
         } catch (Exception e) {
