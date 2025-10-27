@@ -18,4 +18,6 @@ public class Tutor {
 
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
     private List<Session> sessions;
+    
+    private boolean isActive = true;  // Default to true for existing tutors
 }
