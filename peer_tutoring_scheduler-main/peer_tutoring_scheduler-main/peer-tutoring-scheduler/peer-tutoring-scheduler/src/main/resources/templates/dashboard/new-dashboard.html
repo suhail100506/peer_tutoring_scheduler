@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Tutoring - Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Box Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link href="/css/theme.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5d87ff;
+            --primary-light: #ecf2ff;
+            --success: #49beff;
+            --warning: #ffae1f;
+            --danger: #ff5b5b;
+            --dark: #2c3641;
+            --light: #f5f8fb;
+            --gray: #5a6a85;
+            --border: #e5eaef;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark theme styles */
+        [data-theme="dark"] {
+            --dark: #e9ecef;
+            --light: #1a1d21;
+            --gray: #adb5bd;
+            --border: #2d3748;
+            --card-bg: #2d3748;
+            --card-border: #4a5568;
+        }
+        
+        [data-theme="dark"] body {
+            background-color: #1a1d21;
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .card {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .card-header {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-bottom-color: var(--card-border);
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .table {
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .table th,
+        [data-theme="dark"] .table td {
+            border-color: var(--card-border);
+        }
+        
+        [data-theme="dark"] .table-hover tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        [data-theme="dark"] .text-muted {
+            color: #adb5bd !important;
+        }
+        
+        [data-theme="dark"] .bg-light {
+            background-color: #2d3748 !important;
+        }
+        
+        [data-theme="dark"] .nav-link {
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .nav-link:hover,
+        [data-theme="dark"] .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #5d87ff;
+        }
+        
+        [data-theme="dark"] .sidebar {
+            background-color: #1a202c;
+            border-right: 1px solid #2d3748;
+        }
+        
+        [data-theme="dark"] .stat-card .number {
+            color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .stat-card .label {
+            color: #adb5bd;
+        }
+        
+        .sidebar {
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .sidebar .nav-link {
+            color: var(--gray);
+            padding: 0.7rem 1.5rem;
+            margin: 0.2rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover, 
+        .sidebar .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .sidebar .nav-link i {
+            font-size: 1.1rem;
+            margin-right: 0.5rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: var(--dark);
+        }
+        
+        .stat-card .label {
+            color: var(--gray);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .bg-primary-light {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .bg-success-light {
+            background-color: rgba(73, 190, 255, 0.1);
+            color: var(--success);
+        }
+        
+        .bg-warning-light {
+            background-color: rgba(255, 174, 31, 0.1);
+            color: var(--warning);
+        }
+        
+        .bg-danger-light {
+            background-color: rgba(255, 91, 91, 0.1);
+            color: var(--danger);
+        }
+        
+        .recent-activity {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .recent-activity li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .recent-activity li:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                margin-bottom: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 sidebar">
+                <div class="text-center py-4">
+                    <h5 class="text-primary">Peer Tutoring</h5>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="/dashboard">
+                        <i class='bx bxs-dashboard'></i> Dashboard
+                    </a>
+                    <a class="nav-link" href="/sessions">
+                        <i class='bx bx-calendar'></i> Sessions
+                    </a>
+                    <a class="nav-link" href="/tutors">
+                        <i class='bx bx-user-pin'></i> Tutors
+                    </a>
+                    <a class="nav-link" href="/students">
+                        <i class='bx bx-group'></i> Students
+                    </a>
+                    <a class="nav-link" href="/subjects">
+                        <i class='bx bx-book'></i> Subjects
+                    </a>
+                    <a class="nav-link" href="/reports">
+                        <i class='bx bx-bar-chart-alt-2'></i> Reports
+                    </a>
+                    <div class="mt-4 pt-3 border-top mx-3">
+                        <a class="nav-link" href="/settings">
+                            <i class='bx bx-cog'></i> Settings
+                        </a>
+                        <a class="nav-link text-danger" href="/logout">
+                            <i class='bx bx-log-out'></i> Logout
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Page Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0">Dashboard</h1>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-outline-secondary theme-toggle" data-toggle-theme aria-label="Toggle theme">
+                            <i class="bi"></i>
+                        </button>
+                        <a href="/sessions/new" class="btn btn-primary">
+                            <i class='bx bx-plus'></i> New Session
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card stat-card bg-primary-light">
+                            <div class="card-body">
+                                <i class='bx bx-calendar-check'></i>
+                                <div class="number" th:text="${sessionCount}">0</div>
+                                <div class="label">Sessions Today</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card stat-card bg-success-light">
+                            <div class="card-body">
+                                <i class='bx bx-user-pin'></i>
+                                <div class="number" th:text="${tutorCount}">0</div>
+                                <div class="label">Active Tutors</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card stat-card bg-warning-light">
+                            <div class="card-body">
+                                <i class='bx bx-group'></i>
+                                <div class="number" th:text="${studentCount}">0</div>
+                                <div class="label">Total Students</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card stat-card bg-danger-light">
+                            <div class="card-body">
+                                <i class='bx bx-book'></i>
+                                <div class="number" th:text="${subjectCount}">0</div>
+                                <div class="label">Subjects</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Content Row -->
+                <div class="row">
+                    <!-- Upcoming Sessions -->
+                    <div class="col-12 col-lg-8 mb-4">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Upcoming Sessions</h5>
+                                <a href="/sessions" class="btn btn-sm btn-outline-primary">View All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Student</th>
+                                                <th>Subject</th>
+                                                <th>Tutor</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="session : ${upcomingSessions}">
+                                                <td th:text="${#temporals.format(session.sessionTime, 'h:mm a')}">10:00 AM</td>
+                                                <td th:text="${session.student.name}">John Doe</td>
+                                                <td th:text="${session.subject.name}">Mathematics</td>
+                                                <td th:text="${session.tutor.name}">Dr. Smith</td>
+                                                <td><span class="badge bg-success">Scheduled</span></td>
+                                            </tr>
+                                            <tr th:if="${upcomingSessions.isEmpty()}">
+                                                <td colspan="5" class="text-center text-muted py-4">No upcoming sessions</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions & Recent Activity -->
+                    <div class="col-12 col-lg-4">
+                        <!-- Quick Actions -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="/sessions/new" class="btn btn-outline-primary text-start">
+                                        <i class='bx bx-plus-circle me-2'></i> Schedule Session
+                                    </a>
+                                    <a href="/tutors/new" class="btn btn-outline-success text-start">
+                                        <i class='bx bx-user-plus me-2'></i> Add New Tutor
+                                    </a>
+                                    <a href="/students/new" class="btn btn-outline-info text-start">
+                                        <i class='bx bx-user-plus me-2'></i> Register Student
+                                    </a>
+                                    <a href="/reports" class="btn btn-outline-warning text-start">
+                                        <i class='bx bxs-report me-2'></i> Generate Report
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recent Activity</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="recent-activity">
+                                    <li>
+                                        <div class="d-flex justify-content-between">
+                                            <strong>New session scheduled</strong>
+                                            <span class="activity-time">2 min ago</span>
+                                        </div>
+                                        <small class="text-muted">Math with John Doe at 2:00 PM</small>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between">
+                                            <strong>New tutor registered</strong>
+                                            <span class="activity-time">1 hour ago</span>
+                                        </div>
+                                        <small class="text-muted">Dr. Sarah Johnson (Physics)</small>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Session completed</strong>
+                                            <span class="activity-time">3 hours ago</span>
+                                        </div>
+                                        <small class="text-muted">Chemistry - Jane Smith</small>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex justify-content-between">
+                                            <strong>New student registered</strong>
+                                            <span class="activity-time">5 hours ago</span>
+                                        </div>
+                                        <small class="text-muted">Michael Brown</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/theme.js"></script>
+    <script>
+        // Simple script to handle active nav links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current page URL
+            const currentUrl = window.location.pathname;
+            
+            // Get all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Add active class to current page link
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
+                
+                // Add click event to handle mobile menu
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {toggle: false});
+                        bsCollapse.hide();
+                    }
+                });
+            });
+            
+            // Handle responsive sidebar toggle
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('sidebar-toggled');
+                    document.querySelector('.sidebar').classList.toggle('toggled');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

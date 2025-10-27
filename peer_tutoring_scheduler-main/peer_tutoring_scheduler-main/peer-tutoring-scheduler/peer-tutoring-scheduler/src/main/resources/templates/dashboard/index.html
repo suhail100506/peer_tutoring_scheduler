@@ -622,6 +622,219 @@
                     </div>
                 </div>
 
+                <!-- Tutors Section -->
+                <div class="row g-4 mb-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Tutor Management</h5>
+                                <div>
+                                    <div class="input-group" style="max-width: 300px;">
+                                        <span class="input-group-text bg-transparent"><i class="bx bx-search"></i></span>
+                                        <input type="text" class="form-control" placeholder="Search tutors..." id="tutorSearch">
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addTutorModal">
+                                            <i class="bx bx-plus"></i> Add Tutor
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-4" id="tutorsContainer">
+                                    <!-- Tutor Card 1 -->
+                                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="card tutor-card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="position-relative d-inline-block mb-3">
+                                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=5d87ff&color=fff" 
+                                                         class="rounded-circle tutor-avatar mb-2" alt="Tutor">
+                                                    <span class="position-absolute bottom-0 end-0 bg-success rounded-circle p-1 border-2 border-white">
+                                                        <i class="bx bxs-check-circle text-white"></i>
+                                                    </span>
+                                                </div>
+                                                <h5 class="mb-1">Sarah Johnson</h5>
+                                                <p class="text-muted mb-2">Mathematics Tutor</p>
+                                                <div class="rating-stars mb-3">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star-half"></i>
+                                                    <span class="text-muted ms-1">4.7</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Calculus</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Algebra</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">+2</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bx bx-envelope"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-secondary">
+                                                        <i class="bx bx-calendar"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info">
+                                                        <i class="bx bx-show"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tutor Card 2 -->
+                                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="card tutor-card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="position-relative d-inline-block mb-3">
+                                                    <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=49beff&color=fff" 
+                                                         class="rounded-circle tutor-avatar mb-2" alt="Tutor">
+                                                    <span class="position-absolute bottom-0 end-0 bg-success rounded-circle p-1 border-2 border-white">
+                                                        <i class="bx bxs-check-circle text-white"></i>
+                                                    </span>
+                                                </div>
+                                                <h5 class="mb-1">Michael Brown</h5>
+                                                <p class="text-muted mb-2">Physics Tutor</p>
+                                                <div class="rating-stars mb-3">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <span class="text-muted ms-1">4.0</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Mechanics</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Thermodynamics</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bx bx-envelope"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-secondary">
+                                                        <i class="bx bx-calendar"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info">
+                                                        <i class="bx bx-show"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tutor Card 3 -->
+                                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="card tutor-card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="position-relative d-inline-block mb-3">
+                                                    <img src="https://ui-avatars.com/api/?name=Jennifer+Lee&background=ffae1f&color=fff" 
+                                                         class="rounded-circle tutor-avatar mb-2" alt="Tutor">
+                                                    <span class="position-absolute bottom-0 end-0 bg-secondary rounded-circle p-1 border-2 border-white">
+                                                        <i class="bx bx-time text-white"></i>
+                                                    </span>
+                                                </div>
+                                                <h5 class="mb-1">Jennifer Lee</h5>
+                                                <p class="text-muted mb-2">Chemistry Tutor</p>
+                                                <div class="rating-stars mb-3">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <span class="text-muted ms-1">5.0</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Organic</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Inorganic</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">+1</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bx bx-envelope"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-secondary">
+                                                        <i class="bx bx-calendar"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info">
+                                                        <i class="bx bx-show"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tutor Card 4 -->
+                                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                                        <div class="card tutor-card border-0 shadow-sm h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="position-relative d-inline-block mb-3">
+                                                    <img src="https://ui-avatars.com/api/?name=Robert+Taylor&background=ff5b5b&color=fff" 
+                                                         class="rounded-circle tutor-avatar mb-2" alt="Tutor">
+                                                    <span class="position-absolute bottom-0 end-0 bg-danger rounded-circle p-1 border-2 border-white">
+                                                        <i class="bx bx-x text-white"></i>
+                                                    </span>
+                                                </div>
+                                                <h5 class="mb-1">Robert Taylor</h5>
+                                                <p class="text-muted mb-2">Biology Tutor</p>
+                                                <div class="rating-stars mb-3">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <span class="text-muted ms-1">4.9</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Genetics</span>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary subject-badge">Microbiology</span>
+                                                </div>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button class="btn btn-sm btn-outline-primary">
+                                                        <i class="bx bx-envelope"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-secondary">
+                                                        <i class="bx bx-calendar"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info">
+                                                        <i class="bx bx-show"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                                <div class="text-muted small">Showing 1 to 4 of 12 tutors</div>
+                                <nav>
+                                    <ul class="pagination pagination-sm mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Bottom Row -->
                 <div class="row g-4 mt-0">
                     <!-- Subject Distribution -->
@@ -1830,6 +2043,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="/js/theme.js"></script>
+    
+    <!-- Tutor Search Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tutorSearch = document.getElementById('tutorSearch');
+            if (tutorSearch) {
+                tutorSearch.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const tutorCards = document.querySelectorAll('.tutor-card');
+                    
+                    tutorCards.forEach(card => {
+                        const tutorName = card.querySelector('h5').textContent.toLowerCase();
+                        const tutorSubject = card.querySelector('p').textContent.toLowerCase();
+                        
+                        if (tutorName.includes(searchTerm) || tutorSubject.includes(searchTerm)) {
+                            card.closest('.col-12').style.display = '';
+                        } else {
+                            card.closest('.col-12').style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(tooltipTriggerEl => {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
     <script>
         // Toggle sidebar
         document.getElementById('sidebarToggle').addEventListener('click', function() {

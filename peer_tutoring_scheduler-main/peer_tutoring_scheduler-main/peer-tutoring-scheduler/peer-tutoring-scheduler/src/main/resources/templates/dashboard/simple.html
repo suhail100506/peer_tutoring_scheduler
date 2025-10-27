@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Tutoring - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5d87ff;
+            --success: #49beff;
+            --warning: #ffae1f;
+            --danger: #ff5b5b;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .sidebar {
+            min-height: 100vh;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        
+        .nav-link {
+            color: #5a6a85;
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #f0f4f9;
+            color: var(--primary);
+        }
+        
+        .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .stat-card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            color: white;
+        }
+        
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #6c757d;
+            border-top: none;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        .badge {
+            padding: 0.5em 0.8em;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 sidebar">
+                <div class="text-center py-4">
+                    <h5 class="text-primary">Tutoring System</h5>
+                </div>
+                <nav class="nav flex-column">
+                    <a href="/dashboard" class="nav-link active">
+                        <i class="bx bxs-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/sessions" class="nav-link">
+                        <i class="bx bx-calendar"></i>
+                        <span>Sessions</span>
+                    </a>
+                    <a href="/students" class="nav-link">
+                        <i class="bx bx-user"></i>
+                        <span>Students</span>
+                    </a>
+                    <a href="/tutors" class="nav-link">
+                        <i class="bx bx-chalkboard"></i>
+                        <span>Tutors</span>
+                    </a>
+                    <a href="/settings" class="nav-link">
+                        <i class="bx bx-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="/logout" class="nav-link text-danger">
+                        <i class="bx bx-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 p-4">
+                <!-- Top Bar -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Dashboard Overview</h4>
+                    <div class="d-flex">
+                        <div class="input-group me-2">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                <i class="bx bx-search"></i>
+                            </button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <img src="https://ui-avatars.com/api/?name=Admin" class="avatar me-2">
+                                Admin
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="stat-card bg-primary rounded-3 p-3 text-white">
+                            <i class='bx bx-user'></i>
+                            <div class="stat-number" th:text="${studentCount}">0</div>
+                            <div>Total Students</div>
+                            <div class="small mt-1">+12.5% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="stat-card bg-success rounded-3 p-3 text-white">
+                            <i class='bx bx-calendar-check'></i>
+                            <div class="stat-number" th:text="${sessionCount}">0</div>
+                            <div>Sessions This Week</div>
+                            <div class="small mt-1">+5.2% from last week</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="stat-card bg-warning rounded-3 p-3 text-white">
+                            <i class='bx bx-book'></i>
+                            <div class="stat-number" th:text="${subjectCount}">0</div>
+                            <div>Subjects</div>
+                            <div class="small mt-1">+2 new this month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="stat-card bg-danger rounded-3 p-3 text-white">
+                            <i class='bx bx-chalkboard'></i>
+                            <div class="stat-number" th:text="${tutorCount}">0</div>
+                            <div>Active Tutors</div>
+                            <div class="small mt-1">+8.3% from last month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Sessions -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Recent Sessions</h5>
+                        <a href="/sessions" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Subject</th>
+                                    <th>Tutor</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=John+Doe" class="avatar me-2">
+                                            <div>John Doe</div>
+                                        </div>
+                                    </td>
+                                    <td>Calculus</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>Today, 2:00 PM</td>
+                                    <td><span class="badge bg-success">In Progress</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Jane+Smith" class="avatar me-2">
+                                            <div>Jane Smith</div>
+                                        </div>
+                                    </td>
+                                    <td>Physics</td>
+                                    <td>Michael Brown</td>
+                                    <td>Tomorrow, 10:00 AM</td>
+                                    <td><span class="badge bg-warning">Scheduled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Alex+Johnson" class="avatar me-2">
+                                            <div>Alex Johnson</div>
+                                        </div>
+                                    </td>
+                                    <td>Chemistry</td>
+                                    <td>Jennifer Lee</td>
+                                    <td>Oct 28, 2:00 PM</td>
+                                    <td><span class="badge bg-secondary">Upcoming</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Quick Actions</h5>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary text-start">
+                                        <i class="bx bx-plus me-2"></i> Schedule New Session
+                                    </button>
+                                    <button class="btn btn-outline-success text-start">
+                                        <i class="bx bx-user-plus me-2"></i> Add New Student
+                                    </button>
+                                    <button class="btn btn-outline-info text-start">
+                                        <i class="bx bx-chalkboard me-2"></i> Add New Tutor
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Upcoming Deadlines</h5>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item px-0">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Calculus Assignment</h6>
+                                            <small>Tomorrow</small>
+                                        </div>
+                                        <small class="text-muted">Due: Oct 26, 2023</small>
+                                    </div>
+                                    <div class="list-group-item px-0">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Physics Quiz</h6>
+                                            <small>In 2 days</small>
+                                        </div>
+                                        <small class="text-muted">Due: Oct 27, 2023</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Main Content -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple script to handle active nav links
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'dashboard';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href').includes(currentPage)) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
