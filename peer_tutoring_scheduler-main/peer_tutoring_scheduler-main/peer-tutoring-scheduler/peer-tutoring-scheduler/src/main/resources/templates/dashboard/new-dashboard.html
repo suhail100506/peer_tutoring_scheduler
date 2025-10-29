@@ -35,83 +35,58 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        /* Dark theme styles */
+        /* Dark mode styles */
         [data-theme="dark"] {
-            --dark: #e9ecef;
-            --light: #1a1d21;
-            --gray: #adb5bd;
-            --border: #2d3748;
-            --card-bg: #2d3748;
-            --card-border: #4a5568;
-        }
-        
-        [data-theme="dark"] body {
-            background-color: #1a1d21;
-            color: #e9ecef;
+            background-color: #1a1a2e;
+            color: #e6e6e6;
         }
         
         [data-theme="dark"] .card {
-            background-color: var(--card-bg);
-            border-color: var(--card-border);
-            color: #e9ecef;
+            background-color: #16213e;
+            border-color: #1f4068;
+            color: #e6e6e6;
         }
         
         [data-theme="dark"] .card-header {
-            background-color: rgba(0, 0, 0, 0.1);
-            border-bottom-color: var(--card-border);
-            color: #e9ecef;
+            background-color: #16213e;
+            border-bottom-color: #1f4068;
+            color: #e6e6e6;
         }
         
         [data-theme="dark"] .table {
-            color: #e9ecef;
+            color: #e6e6e6;
         }
         
         [data-theme="dark"] .table th,
         [data-theme="dark"] .table td {
-            border-color: var(--card-border);
+            border-color: #1f4068;
         }
         
         [data-theme="dark"] .table-hover tbody tr:hover {
             background-color: rgba(255, 255, 255, 0.05);
-        }
-        
-        [data-theme="dark"] .text-muted {
-            color: #adb5bd !important;
-        }
-        
-        [data-theme="dark"] .bg-light {
-            background-color: #2d3748 !important;
+            color: #fff;
         }
         
         [data-theme="dark"] .nav-link {
-            color: #e9ecef;
+            color: #e6e6e6;
         }
         
         [data-theme="dark"] .nav-link:hover,
         [data-theme="dark"] .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #5d87ff;
+            background-color: #1f4068;
+            color: #fff;
         }
         
         [data-theme="dark"] .sidebar {
-            background-color: #1a202c;
-            border-right: 1px solid #2d3748;
-        }
-        
-        [data-theme="dark"] .stat-card .number {
-            color: #e9ecef;
-        }
-        
-        [data-theme="dark"] .stat-card .label {
-            color: #adb5bd;
+            background-color: #16213e;
+            border-right: 1px solid #1f4068;
         }
         
         .sidebar {
             background: #fff;
             min-height: 100vh;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border-right: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            transition: all 0.3s;
         }
         
         .sidebar .nav-link {
@@ -141,11 +116,10 @@
         .card {
             border: none;
             border-radius: 0.75rem;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
             margin-bottom: 1.5rem;
             border: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.2s, background-color 0.3s ease, border-color 0.3s ease;
-            background-color: #fff;
+            transition: transform 0.2s, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
         
         .card:hover {
@@ -168,6 +142,11 @@
             font-weight: 700;
             margin: 0.5rem 0;
             color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        
+        [data-theme="dark"] .stat-card .number {
+            color: #fff;
         }
         
         .stat-card .label {
@@ -175,6 +154,11 @@
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        [data-theme="dark"] .stat-card .label {
+            color: #a8b2d1;
         }
         
         .stat-card i {
@@ -212,6 +196,11 @@
         .recent-activity li {
             padding: 1rem 0;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: border-color 0.3s ease;
+        }
+        
+        [data-theme="dark"] .recent-activity li {
+            border-bottom-color: #1f4068;
         }
         
         .recent-activity li:last-child {
@@ -221,6 +210,11 @@
         .activity-time {
             font-size: 0.75rem;
             color: var(--gray);
+            transition: color 0.3s ease;
+        }
+        
+        [data-theme="dark"] .activity-time {
+            color: #a8b2d1;
         }
         
         @media (max-width: 768px) {
@@ -350,11 +344,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="session : ${upcomingSessions}">
-                                                <td th:text="${#temporals.format(session.sessionTime, 'h:mm a')}">10:00 AM</td>
-                                                <td th:text="${session.student.name}">John Doe</td>
-                                                <td th:text="${session.subject.name}">Mathematics</td>
-                                                <td th:text="${session.tutor.name}">Dr. Smith</td>
+                                            <tr th:each="tutoringSession : ${upcomingSessions}">
+                                                <td th:text="${#temporals.format(tutoringSession.startTime, 'h:mm a')}">10:00 AM</td>
+                                                <td th:text="${tutoringSession.student?.name}">John Doe</td>
+                                                <td th:text="${tutoringSession.subject}">Mathematics</td>
+                                                <td th:text="${tutoringSession.tutor?.name}">Tutor Name</td>
                                                 <td><span class="badge bg-success">Scheduled</span></td>
                                             </tr>
                                             <tr th:if="${upcomingSessions.isEmpty()}">
